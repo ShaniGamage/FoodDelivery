@@ -4,7 +4,8 @@ import { assets } from '../../frontend_assets/assets'
 
 const Navbar = () => {
 
-    const [menu,setMenu] = useState("home");
+  const [menu,setMenu] = useState("home");
+  
   return (
     <div className='navbar'>
         <img src={assets.logo} alt='logo' className='logo'></img>

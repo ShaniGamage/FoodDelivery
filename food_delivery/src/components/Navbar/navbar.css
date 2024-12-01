@@ -44,6 +44,10 @@
     border-bottom: 2px solid #49557e;
 }
 
+.navbar li{
+    cursor: pointer;
+}
+
 .navbar-search-icon{
     position: relative;
 }
