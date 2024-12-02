@@ -1,6 +1,6 @@
 import React, {useContext } from 'react';
 import { StoreContext } from '../../Context/StoreContext'
-import  './FoodItem.css'
+import  './fooditem.css'
 import {assets} from '../../frontend_assets/assets'
 
 const FoodItem = ({id,name,price,description,image}) => {
@@ -16,7 +16,7 @@ const FoodItem = ({id,name,price,description,image}) => {
                 : <div className='food-item-counter'>
                     <img onClick={()=>removeFromCart(id)} src={assets.remove_icon_red} alt=''></img>
                     <p>{cartItems[id]}</p>
-                    <img onClick={()=>addToCart(id)} src={assets.add_icon_green}></img>
+                    <img onClick={()=>addToCart(id)} src={assets.add_icon_green} alt=''></img>
                 </div>
             }
         </div>
