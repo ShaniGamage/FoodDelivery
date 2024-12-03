@@ -24,18 +24,54 @@ const Cart = () => {
           //if cartItems contains one product 
           if(cartItems[item.id ]>0){
             return(
-              <div className='cart-items-title cart-items-item'>
+              <div>
+                <div className='cart-items-title cart-items-item'>
                 <img src={item.image} alt=''></img>
                 <p>{item.name}</p>
-                <p>{item.price}</p>
+                <p>${item.price}</p>
                 <p>{cartItems[item.id]}</p>
-                <p>{item.price*cartItems[item.id]}</p>
-                <p>x</p>
-
+                <p>${item.price*cartItems[item.id]}</p>
+                <p  onClick={()=>removeFromCart(item.id)} className='cross'>x</p>
+              </div>
+              <hr/>
               </div>
             )
           }
         })}
+      </div>
+      <div className='cart-bottom'>
+        <div className='cart-total'>
+          <h2>Cart Totals</h2>
+          <div>
+            <div className='cart-total-details'>
+              <p>Subtotal</p>
+              <p>{0}</p>
+            </div>
+            <hr/>
+
+            <div className='cart-total-details'>
+              <p>Delivery Fee</p>
+              <p>{2}</p>
+            </div>
+            <hr/>
+      
+            <div className='cart-total-details'>
+              <b>Total</b>
+              <b>{0}</b>
+            </div>
+            
+          </div>
+          <button>PROCEED TO CHECKOUT</button>
+        </div>
+        <div className='cart-promocode'>
+          <div>
+            <p>If you have promocode, Enter it here</p>
+            <div className='cart-promocode-input'>
+              <input type='text' placeholder='promo code'></input>
+              <button>Submit</button>
+            </div>
+          </div>
+        </div>
       </div>
       
     </div>
