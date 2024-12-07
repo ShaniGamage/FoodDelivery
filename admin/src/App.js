@@ -1,4 +1,7 @@
-import React from 'react'
+
+//npm run dev
+
+import React from 'react'             
 import Navbar from './components/Navbar/Navbar'
 import Sidebar from './components/Sidebar/Sidebar'
 import {Routes,Route} from 'react-router-dom'
