@@ -4,8 +4,11 @@ import fs from 'fs';
 //add food item
 
 const addFood = async(req,res)=>{
-    //I have commented the first line because I not add a image using thunder client.When we use real crud we can remove second line
 
+    console.log("File:", req.file); // Should show details about the uploaded file
+    console.log("Body:", req.body); // Should show other form data
+
+    
     //let image_filename = `${req.file.filename}`;
     let image_filename = req.file ? req.file.filename : "default.jpg"; // Use a default image if none is uploaded
 
@@ -41,10 +44,14 @@ const listFood = async (req,res) => {
 const removeFood = async (req,res) => {
     try{
         const food = await foodModel.findById(req.body.id);//find the foodModel using ID
-        fs.unlink(`uploads/${food.image}`,()=>{});//delete food
+        fs.unlink(`uploads/${food.image}`,()=>{});
+        
+        //delete food
         await foodModel.findByIdAndDelete(req.body.id)
         res.json({success:true,message:"Food Removed"})
-    }catch(error){
+
+    }
+    catch(error){
         console.log(error);
         res.json({success:false,message:"Error"});
     }
