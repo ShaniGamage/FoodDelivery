@@ -2,6 +2,7 @@ import React, {  useState } from 'react'
 import './add.css'
 import { assets } from '../../assets/assets'
 import axios from "axios"
+import { toast } from 'react-toastify'
 
 const Add = () => {
 
@@ -39,6 +40,7 @@ const Add = () => {
           category:"Salad"
         })
         setImage(false)
+        toast.success(response.data.message)
      }
      else{
        console.error("Error adding food item:", response.data.message);  //I added this additionally
