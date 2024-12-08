@@ -4,8 +4,11 @@ import fs from 'fs';
 //add food item
 
 const addFood = async(req,res)=>{
-    //I have commented the first line because I not add a image using thunder client.When we use real crud we can remove second line
 
+    console.log("File:", req.file); // Should show details about the uploaded file
+    console.log("Body:", req.body); // Should show other form data
+
+    
     //let image_filename = `${req.file.filename}`;
     let image_filename = req.file ? req.file.filename : "default.jpg"; // Use a default image if none is uploaded
 

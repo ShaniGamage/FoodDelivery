@@ -22,15 +22,16 @@ const Add = () => {
 
   const onSubmitHandler = async(event) =>{
      event.preventDefault();
-     const formData = new formData();
+     const formData = new FormData();
      formData.append("name",data.name)
      formData.append("description",data.description)
      formData.append("price",Number(data.price))
+     formData.append("image",image)   //there is little bit of difference compared to tutorial
      formData.append("category",data.category)
-     formData.append("image",data.image)
+     
      const response = await axios.post(`${url}/api/food/add`,formData)
 
-     if(response.data.success){
+     if(response.data.success){ //data has been added successfully to database 
         setData({
           name :"",
           description:"",
@@ -40,7 +41,7 @@ const Add = () => {
         setImage(false)
      }
      else{
-
+       console.error("Error adding food item:", response.data.message);  //I added this additionally
      }
   }
 
@@ -56,7 +57,7 @@ const Add = () => {
           <label htmlFor='image'>
             <img src={image?URL.createObjectURL(image):assets.upload_area} alt=''></img>
           </label>
-          <input onChange={(e)=>setImage(e.target.files[0])} type='file' id='image' hidden required/>
+          <input onChange={(e)=>setImage(e.target.files[0])} type='file' id='image' name='image' hidden required/> 
         </div>
 
         <div className='add-product-name flex-col'>

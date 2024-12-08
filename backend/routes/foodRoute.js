@@ -8,13 +8,14 @@ const foodRouter = express.Router();
 const storage=multer.diskStorage({
     destination:"uploads/",
     filename:(req,file,cb)=>{
-        return cb(null,`${Date.now()}${file.originalname}`);
+        //return cb(null,`${Date.now()}${file.originalname}`);      //I have commented this beacuse of image didn't upload with this
+        cb(null, `${Date.now()}-${file.originalname}`); //got from chatgpt
     },
 });
 
-const upload = multer ({storage:storage})//this is a middleware//use to save image in the upload folder
-
-//there are two lines below.first line use when we add image also.But the case is we can't upload image using thunder client as tutorial.
+//const upload = multer ({storage:storage})         //I have commented this beacuse of image didn't upload with this
+const upload = multer({ storage }); //got from chatgpt
+ 
 
 foodRouter.post("/add",upload.single("image"),addFood)
 //foodRouter.post("/add", addFood); // Remove multer middleware temporarily
