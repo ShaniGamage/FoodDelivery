@@ -1,6 +1,6 @@
 import { createContext, useEffect } from "react";
-import { useState } from 'react'
-import { food_list } from "../frontend_assets/assets";
+import { useState } from 'react';
+import axios from "axios";
 
 export const StoreContext = createContext(null)
 
@@ -10,6 +10,7 @@ const StoreContextProvider=(props)=>{
 
         const url = "http://localhost:5000"
         const [token,setToken] = useState("")
+        const [food_list,setFoodList]=useState([])
 
         const addToCart=(itemId)=>{
             if(!cartItems[itemId]){
@@ -25,22 +26,35 @@ const StoreContextProvider=(props)=>{
         setCartItems((prev)=>({...prev,[itemId]:prev[itemId]-1}))
     };
 
-    const getTotalCartAmount=()=>{
-        let totalAmount=0;
-        for(const item in cartItems){
-            if(cartItems[item]>0){
+    const getTotalCartAmount = () => {
+    let totalAmount = 0;
+    for (const item in cartItems) {
+        if (cartItems[item] > 0) {
+            // Check if itemInfo exists before accessing its properties
+            let itemInfo = food_list.find((product) => product.id === item);
 
-                //if product.id is matching with the item, it means that product is available in the cart
-                let itemInfo=food_list.find((product)=>product.id===item);
-
-               //product price * quantity to get total
-               totalAmount+=itemInfo.price*cartItems[item];
-
+            if (itemInfo) {  // Ensure itemInfo is not undefined
+                totalAmount += itemInfo.price * cartItems[item];
             }
         }
-        return totalAmount;
+    }
+    return totalAmount;
+};
+
+    const fetchFoodList =async () =>{
+        const response = await axios.get(url + "/api/food/list/");
+        setFoodList(response.data.data)
     }
 
+    useEffect (()=>{
+        async function loadData(){
+            await fetchFoodList();
+            if(localStorage.getItem("token")){
+                setToken(localStorage.getItem("token"));
+            }
+        }
+        loadData();
+    },[])
 
     const contextValue={
        food_list,
